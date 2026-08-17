@@ -1,8 +1,7 @@
-import "dotenv/config";
-
+import { env } from "./config/env"; // 1. Importamos nossa fonte única de verdade
 import fastify from "fastify";
 import { shipmentRoutes } from "./http/routes/shipment-routes";
-import { startScheduler } from "./jobs/scheduler"; // Importando o agendador
+import { startScheduler } from "./jobs/scheduler";
 
 const app = fastify({ logger: true });
 
@@ -14,10 +13,9 @@ app.register(shipmentRoutes);
 
 const start = async () => {
   try {
-    const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3333;
-
-    await app.listen({ port, host: "0.0.0.0" });
-    console.log(`[Quando Chega?] Servidor HTTP rodando na porta ${port}`);
+    // 2. Removemos o parseInt manual. O Zod já garantiu que env.PORT é um número.
+    await app.listen({ port: env.PORT, host: "0.0.0.0" });
+    console.log(`[Quando Chega?] Servidor HTTP rodando na porta ${env.PORT}`);
 
     // Inicia o job em background!
     startScheduler();

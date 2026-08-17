@@ -1,4 +1,11 @@
+import { env } from "../config/env"; // Usando nossa central
 import knex from "knex";
-import knexConfig from "../../knexfile";
 
-export const db = knex(knexConfig.development);
+export const db = knex({
+  client: "pg",
+  connection: env.DATABASE_URL, // Sempre será uma string garantida pelo Zod
+  pool: {
+    min: 2,
+    max: 10,
+  },
+});

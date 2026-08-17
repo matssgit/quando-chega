@@ -3,6 +3,10 @@ node_modules/
 
 # Variáveis de ambiente
 .env
+.env.*
+!.env.example
 
 # Arquivos compilados do TypeScript
 dist/
+
+

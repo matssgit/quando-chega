@@ -1,5 +1,5 @@
-import { ShipmentRepository } from "./repositories/shipment-repository";
-import { db } from "./index";
+import { ShipmentRepository } from "../src/database/repositories/shipment-repository";
+import { db } from "../src/database";
 
 async function testRepo() {
   try {
